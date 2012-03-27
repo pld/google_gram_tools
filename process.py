@@ -8,7 +8,7 @@ import pprint
 def dd():
     return defaultdict(dict)
 
-def parse(pickle_file):
+def parse(pickle_file, case_insensitive=True):
     # directory with parsed gram files
     dirs = ["google_2grams_parsed"]
     grams_to_years_to_counts = defaultdict(dd)
@@ -25,7 +25,9 @@ def parse(pickle_file):
                     occurences, pages, books = [
                         int(x) for x in [occurences, pages, books]
                     ]
-                    t = t.lower()
+                    # make case insensitive?
+                    if case_insensitive:
+                        t = t.lower()
                     if grams_to_years_to_counts[t][year]:
                         grams_to_years_to_counts[t][year][0] += occurences
                         grams_to_years_to_counts[t][year][1] += pages
